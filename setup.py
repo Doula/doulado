@@ -1,14 +1,16 @@
-from setuptools import setup, find_packages
-import sys, os
+#import os
+#import sys
+from setuptools import find_packages
+from setuptools import setup
 
 version = '0.0'
+requires = []
 
 setup(name='doula-op-tools',
       version=version,
       description="",
-      long_description="""\
-""",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      long_description=open('README.rst'),
+      classifiers=[], 
       keywords='',
       author='doula committers',
       author_email='',
@@ -17,10 +19,7 @@ setup(name='doula-op-tools',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=False,
-      install_requires=[
-          # -*- Extra requirements: -*-
-      ],
+      install_requires=requires,
       entry_points="""
-      # -*- Entry points: -*-
       """,
       )
