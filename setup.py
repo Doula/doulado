@@ -1,12 +1,12 @@
-#import os
-#import sys
 from setuptools import find_packages
 from setuptools import setup
+
 
 version = '0.0'
 requires = []
 
-setup(name='doula-op-tools',
+
+setup(name='doulado',
       version=version,
       description="",
       long_description=open('README.rst'),
@@ -21,5 +21,7 @@ setup(name='doula-op-tools',
       zip_safe=False,
       install_requires=requires,
       entry_points="""
+      [console_scripts]
+      doula = doulado.script:main 
       """,
       )
