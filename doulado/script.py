@@ -1,3 +1,4 @@
+from .fabfile import sh, devinstall
 from path import path
 import argparse
 import sys
@@ -9,8 +10,9 @@ def main(argv=None):
     parser = argparse.ArgumentParser()    
     subparsers = parser.add_subparsers(help='commands')
     devinst_parser = subparsers.add_parser('devinst', help='Create a development environment')
-    devinst_parser.add_argument('virtualenv', action='store',
-                                help='name of virtualenv to create or into which to install doula')
+    ## devinst_parser.add_argument('virtualenv', action='store',
+    ##                             help='name of virtualenv to create or into which to install doula')
+    
     devinst_parser.set_defaults(func=devinst)
     deploy_parser = subparsers.add_parser('deploy', help='Deploy doula')
     deploy_parser.add_argument('config', action='store',
@@ -26,9 +28,8 @@ def main(argv=None):
     return args.func(args)
 
 
-
 def devinst(args):
-    import pdb;pdb.set_trace()
+    devinstall()
 
 def deploy(args):
     pass
