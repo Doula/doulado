@@ -62,7 +62,7 @@ def install_zmq(version=ZMQ):
     srcdir = venv / 'src'
     if not (srcdir / version).exists():
         with pushd(srcdir):
-            fab.local('wget -quiet -O - "http://download.zeromq.org/%s.tar.gz" | tar -xzf -' %version)
+            fab.local('wget -O - "http://download.zeromq.org/%s.tar.gz" | tar -xzf -' %version)
         
     with pushd(srcdir / version):
         if not path('config.status').exists():
