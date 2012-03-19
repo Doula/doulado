@@ -1,5 +1,4 @@
-from .fabfile import sh, devinstall
-from path import path
+from .fabfile import devinstall
 import argparse
 import sys
 
@@ -31,8 +30,10 @@ def main(argv=None):
 def devinst(args):
     devinstall()
 
+
 def deploy(args):
     pass
+
 
 def create(args):
     pass

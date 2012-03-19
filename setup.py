@@ -3,7 +3,7 @@ from setuptools import setup
 
 
 version = '0.0'
-requires = []
+requires = ['path.py', 'fabric']
 
 
 setup(name='doulado',
