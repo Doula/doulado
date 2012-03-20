@@ -75,6 +75,8 @@ def install_zmq(version=ZMQ):
 def devinstall():
     venv = path(os.environ['VIRTUAL_ENV'])
     srcdir = venv / 'src'
+    if not srcdir.exists():
+        srcdir.mkdir()
     with pushd(srcdir):
         fab.execute(install_zmq)
         fab.local('pip install distribute==0.6.14')
