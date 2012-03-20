@@ -8,7 +8,7 @@ requires = ['path.py', 'fabric']
 
 setup(name='doulado',
       version=version,
-      description="",
+      description="CLI for working with Doula",
       long_description=open('README.rst'),
       classifiers=[], 
       keywords='',
