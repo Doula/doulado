@@ -1,4 +1,5 @@
-from .fabfile import devinstall
+from .config import resource_spec 
+from .devinst import devinstall
 import argparse
 import sys
 
@@ -9,8 +10,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser()    
     subparsers = parser.add_subparsers(help='commands')
     devinst_parser = subparsers.add_parser('devinst', help='Create a development environment')
-    ## devinst_parser.add_argument('virtualenv', action='store',
-    ##                             help='name of virtualenv to create or into which to install doula')
+    devinst_parser.add_argument('-c', action='store', default=resource_spec('egg:DoulaDo#doulado/devinst.yml'),
+                                help='config file for running devinst')
     
     devinst_parser.set_defaults(func=devinst)
     deploy_parser = subparsers.add_parser('deploy', help='Deploy doula')
