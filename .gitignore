@@ -9,3 +9,10 @@
 .DS_Store
 /build
 /temp
+.Python
+bin
+include
+lib
+man
+share
+src
