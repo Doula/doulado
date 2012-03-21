@@ -69,7 +69,7 @@ def devinstall(deps=None):
         install_zmq(deps.zmq)
         fab.local('pip install distribute==0.6.14')
         check_and_install('cython', 'pip install Cython')
-        check_and_install('gevent', 'pip install -e git+%s#egg=gevent' %deps)
+        check_and_install('gevent', 'pip install -e git+%s#egg=gevent' %deps.gevent)
         check_and_install('zmq', "pip install pyzmq --install-option='--zmq=%s'" %venv)
         check_and_install('gevent_zmq', install_gz, repo=deps.gevent_zmq)
         clone_develop(repo=deps.doula)
