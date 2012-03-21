@@ -7,15 +7,9 @@ try:
 except ImportError:
     from yaml import Loader
 
-def yml_load(stream, loader=Loader, close=False):
-    if isinstance(stream, basestring):
-        stream = open(stream)
-        close = True
-    try:
-        return yaml.load_all(stream, loader=Loader)
-    finally:
-        if close is True:
-            stream.close()
+
+def yml_load(stream, loader=Loader):
+    return yaml.load_all(stream, loader)
 
 
 def resource_spec(spec):
