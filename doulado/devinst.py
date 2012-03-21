@@ -1,18 +1,12 @@
 from contextlib import contextmanager
 from fabric import api as fab
 from path import path
-
+import stuf
 import os
 import subprocess
 
 
 pushd = fab.lcd
-
-GEVENT = 'git@github.com:whitmo/gevent.git'
-GEVENT_ZMQ = 'git@github.com:whitmo/gevent-zeromq.git'
-DOULA = 'git@github.com:SurveyMonkey/Doula.git'
-BAMBINO = 'git@github.com:SurveyMonkey/Bambino.git'
-ZMQ = 'zeromq-2.1.11'
 venv = path(os.environ['VIRTUAL_ENV'])
 
 def ppid():
@@ -26,7 +20,7 @@ def not_on_path(pkg):
         return True
 
 
-def check_and_install(pkg, cmd, runner='local', test=not_on_path):
+def check_and_install(pkg, cmd, runner='local', test=not_on_path, **kw):
     if test(pkg):
         if isinstance(cmd, basestring):
             run = getattr(fab, runner)
@@ -49,18 +43,9 @@ def clone_develop(pkg, repo):
             fab.local('pip install -r %s/develop.txt' %pkg)
             fab.local('pip install -e ./%s' %pkg)
 
-@fab.task
-def install_doula(repo=DOULA):
-    clone_develop('doula', repo)
-
 
 @fab.task
-def install_bambino(repo=BAMBINO):
-    clone_develop('bambino', repo)
-
-
-@fab.task
-def install_zmq(version=ZMQ):
+def install_zmq(version=None):
     srcdir = venv / 'src'
     if not (srcdir / version).exists():
         with pushd(srcdir):
@@ -74,29 +59,31 @@ def install_zmq(version=ZMQ):
 
 
 @fab.task
-def devinstall():
+def devinstall(deps=None):
+    deps = stuf.fixedstuf(deps)
+    import pdb;pdb.set_trace()
     venv = path(os.environ['VIRTUAL_ENV'])
     srcdir = venv / 'src'
     if not srcdir.exists():
         srcdir.mkdir()
     with pushd(srcdir):
-        fab.execute(install_zmq)
+        install_zmq(deps.zmq)
         fab.local('pip install distribute==0.6.14')
         check_and_install('cython', 'pip install Cython')
-        check_and_install('gevent', 'pip install -e git+%s#egg=gevent' %GEVENT)
+        check_and_install('gevent', 'pip install -e git+%s#egg=gevent' %deps)
         check_and_install('zmq', "pip install pyzmq --install-option='--zmq=%s'" %venv)
-        check_and_install('gevent_zmq', install_gz)
-        install_doula()
-        install_bambino()
+        check_and_install('gevent_zmq', install_gz, repo=deps.gevent_zmq)
+        clone_develop(repo=deps.doula)
+        clone_develop(repo=deps.bambino)
 
 
 @fab.task
-def install_gz():
+def install_gz(repo='git@github.com:whitmo/gevent-zeromq.git'):
     srcdir = venv / 'src'
     with pushd(srcdir):
         with fab.settings(warn_only=True):
             if not path('gevent-zeromq').exists():
-                fab.local('git clone %s' %GEVENT_ZMQ)
+                fab.local('git clone %s' %repo)
         with pushd('gevent-zeromq'):
             fab.local("python setup.py build_ext -I$VIRTUAL_ENV/include install")
 
