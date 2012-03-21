@@ -61,7 +61,6 @@ def install_zmq(version=None):
 @fab.task
 def devinstall(deps=None):
     deps = stuf.fixedstuf(deps)
-    import pdb;pdb.set_trace()
     venv = path(os.environ['VIRTUAL_ENV'])
     srcdir = venv / 'src'
     if not srcdir.exists():
