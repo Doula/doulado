@@ -19,7 +19,8 @@ If you would like to hack on doula, `doulado` provides a command for
 installing all the dependencies you might need::
 
  <in side an activated virtualenv> 
- $ doula devinst
+ pip install -e git+git://github.com/Doula/doulado.git#egg=doulado
+ doula devinst
 
 
 Service creation
