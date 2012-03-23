@@ -2,7 +2,7 @@ dependencies:
   bambino: 'git@github.com:SurveyMonkey/Bambino.git'
   doula: 'git@github.com:SurveyMonkey/Doula.git'
   gevent: 'git@github.com:whitmo/gevent.git'
-  gevent_ZMQ: 'git@github.com:whitmo/gevent-zeromq.git'
+  gevent_zmq: 'git@github.com:whitmo/gevent-zeromq.git'
   zmq: 'zeromq-2.1.11'
 
 readonly:
