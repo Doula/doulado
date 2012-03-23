@@ -72,8 +72,8 @@ def devinstall(deps=None):
         check_and_install('gevent', 'pip install -e git+%s#egg=gevent' %deps.gevent)
         check_and_install('zmq', "pip install pyzmq --install-option='--zmq=%s'" %venv)
         check_and_install('gevent_zmq', install_gz, repo=deps.gevent_zmq)
-        clone_develop(repo=deps.doula)
-        clone_develop(repo=deps.bambino)
+        clone_develop('doula', repo=deps.doula)
+        clone_develop('bambino', repo=deps.bambino)
 
 
 @fab.task
